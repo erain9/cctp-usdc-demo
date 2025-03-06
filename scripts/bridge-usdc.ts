@@ -1,12 +1,15 @@
-const hre = require("hardhat");
-const { ethers } = require("hardhat");
+import { ethers } from "hardhat";
 
-async function main() {
+interface Domains {
+  [key: string]: number;
+}
+
+async function main(): Promise<void> {
   // Configuration
   const amount = ethers.parseUnits("10", 6); // 10 USDC (USDC has 6 decimals)
   
   // Domain IDs for different chains (from Circle's documentation)
-  const domains = {
+  const domains: Domains = {
     ethereum: 0, 
     avalanche: 1,
     arbitrum: 3,
@@ -15,14 +18,17 @@ async function main() {
   };
 
   // Get parameters from command line or use defaults
-  const destinationDomain = process.env.DESTINATION_DOMAIN || domains.arbitrum;
-  const destinationAddress = process.env.DESTINATION_ADDRESS || (await ethers.getSigners())[0].address;
+  const destinationDomain = process.env.DESTINATION_DOMAIN 
+    ? parseInt(process.env.DESTINATION_DOMAIN) 
+    : domains.arbitrum;
+  const signers = await ethers.getSigners();
+  const destinationAddress = process.env.DESTINATION_ADDRESS || signers[0].address;
   
   // Convert address to bytes32 format required by CCTP
   const destinationAddressBytes32 = ethers.zeroPadValue(destinationAddress, 32);
   
   console.log(`Bridging ${ethers.formatUnits(amount, 6)} USDC`);
-  console.log(`From: ${hre.network.name}`);
+  console.log(`From: ${process.env.HARDHAT_NETWORK || 'hardhat'}`);
   console.log(`To Domain: ${destinationDomain}`);
   console.log(`Recipient: ${destinationAddress}`);
 
@@ -62,7 +68,7 @@ async function main() {
 
 main()
   .then(() => process.exit(0))
-  .catch((error) => {
+  .catch((error: Error) => {
     console.error(error);
     process.exit(1);
   }); 

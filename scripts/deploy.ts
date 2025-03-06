@@ -1,10 +1,17 @@
-const hre = require("hardhat");
+import { ethers, run } from "hardhat";
 
-async function main() {
+interface NetworkConfig {
+  [key: string]: {
+    tokenMessenger: string;
+    usdc: string;
+  };
+}
+
+async function main(): Promise<void> {
   console.log("Deploying CCTPBridge contract...");
 
   // Get the network configuration - these would be actual addresses from Circle's documentation
-  const networkConfig = {
+  const networkConfig: NetworkConfig = {
     // Ethereum Goerli testnet
     goerli: {
       tokenMessenger: "0xd0c3da58f55358142b8d3e06c1c30c5c6114efe8",
@@ -18,11 +25,11 @@ async function main() {
   };
 
   // Get the current network
-  const network = hre.network.name;
+  const network = process.env.HARDHAT_NETWORK || "hardhat";
   const config = network === "arbitrum" ? networkConfig.arbitrumGoerli : networkConfig.goerli;
 
   // Deploy the bridge contract
-  const CCTPBridge = await hre.ethers.getContractFactory("CCTPBridge");
+  const CCTPBridge = await ethers.getContractFactory("CCTPBridge");
   const bridge = await CCTPBridge.deploy(config.tokenMessenger, config.usdc);
 
   await bridge.waitForDeployment();
@@ -34,18 +41,20 @@ async function main() {
 
   console.log("Waiting for confirmations...");
   // Wait for 5 confirmations for better visibility on block explorers
-  await bridge.deploymentTransaction().wait(5);
+  await bridge.deploymentTransaction()?.wait(5);
   
   console.log("Verifying contract on Etherscan...");
-  await hre.run("verify:verify", {
+  await run("verify:verify", {
     address: address,
     constructorArguments: [config.tokenMessenger, config.usdc],
   });
 }
 
+// We recommend this pattern to be able to use async/await everywhere
+// and properly handle errors.
 main()
   .then(() => process.exit(0))
-  .catch((error) => {
+  .catch((error: Error) => {
     console.error(error);
     process.exit(1);
   }); 

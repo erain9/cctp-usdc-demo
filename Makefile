@@ -62,11 +62,11 @@ clean:
 # --------------------------------------
 deploy-goerli:
 	@echo "${YELLOW}Deploying to Goerli testnet...${NC}"
-	npx hardhat run scripts/deploy.js --network goerli # Runs deployment script on Goerli
+	npx hardhat run scripts/deploy.ts --network goerli # Runs deployment script on Goerli
 
 deploy-arbitrum:
 	@echo "${YELLOW}Deploying to Arbitrum testnet...${NC}"
-	npx hardhat run scripts/deploy.js --network arbitrum # Runs deployment script on Arbitrum
+	npx hardhat run scripts/deploy.ts --network arbitrum # Runs deployment script on Arbitrum
 
 # --------------------------------------
 # Bridge USDC - executes USDC bridging from Goerli to destination chain
@@ -79,4 +79,4 @@ deploy-arbitrum:
 # --------------------------------------
 bridge-goerli:
 	@echo "${YELLOW}Bridging USDC from Goerli...${NC}"
-	npx hardhat run scripts/bridge-usdc.js --network goerli # Executes bridging script 
+	npx hardhat run scripts/bridge-usdc.ts --network goerli # Executes bridging script 

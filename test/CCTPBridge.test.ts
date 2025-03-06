@@ -1,12 +1,14 @@
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
+import { expect } from "chai";
+import { ethers } from "hardhat";
+import { CCTPBridge, MockTokenMessenger, MockUSDC } from "../typechain-types";
+import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
 
 describe("CCTPBridge", function () {
-  let cctpBridge;
-  let mockTokenMessenger;
-  let mockUSDC;
-  let owner;
-  let user;
+  let cctpBridge: CCTPBridge;
+  let mockTokenMessenger: MockTokenMessenger;
+  let mockUSDC: MockUSDC;
+  let owner: SignerWithAddress;
+  let user: SignerWithAddress;
   
   // Sample values for testing
   const destinationDomain = 3; // Arbitrum domain ID

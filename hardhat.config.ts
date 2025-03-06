@@ -1,8 +1,11 @@
-require("@nomicfoundation/hardhat-toolbox");
-require("dotenv").config();
+import "@nomicfoundation/hardhat-toolbox";
+import "@typechain/hardhat";
+import { config as dotenvConfig } from "dotenv";
+import { HardhatUserConfig } from "hardhat/config";
 
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
+dotenvConfig();
+
+const config: HardhatUserConfig = {
   solidity: "0.8.20",
   networks: {
     hardhat: {
@@ -20,12 +23,7 @@ module.exports = {
       url: process.env.ARBITRUM_RPC_URL || "",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
     }
-  },
-  etherscan: {
-    apiKey: {
-      mainnet: process.env.ETHERSCAN_API_KEY || "",
-      goerli: process.env.ETHERSCAN_API_KEY || "",
-      arbitrumOne: process.env.ARBISCAN_API_KEY || ""
-    }
   }
 };
+
+export default config; 

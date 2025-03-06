@@ -6,22 +6,7 @@ This project demonstrates how to use [Circle's Cross-Chain Transfer Protocol (CC
 
 Circle's Cross-Chain Transfer Protocol (CCTP) is a permissionless on-chain utility that can burn native USDC on a source chain and mint native USDC of the same amount on a destination chain. This enables fast, secure, and cost-effective transfers of USDC between supported blockchains.
 
-This demo includes:
-
-- Smart contracts for interacting with CCTP
-- Scripts for deploying the contracts and executing USDC transfers
-- Tests for verifying the contract functionality
-
-## Supported Chains
-
-CCTP currently supports USDC transfers between these chains:
-
-- Ethereum
-- Arbitrum
-- Avalanche
-- Optimism
-- Base
-- Solana (not covered in this Ethereum-focused demo)
+This demo includes smart contracts, deployment scripts, and tests for interacting with CCTP to transfer USDC between supported chains including Ethereum, Arbitrum, Avalanche, Optimism, and Base.
 
 ## Prerequisites
 
@@ -44,40 +29,17 @@ CCTP currently supports USDC transfers between these chains:
    npm install
    ```
 
-3. Create a `.env` file from the example:
+3. Create and configure your `.env` file:
    ```
    cp .env.example .env
+   # Edit the .env file with your API keys and private key
    ```
-
-4. Edit the `.env` file with your API keys and private key.
-
-## Project Structure
-
-```
-cctp-usdc-demo/
-├── contracts/
-│   ├── CCTPBridge.sol         # Main contract for CCTP interactions
-│   ├── interfaces/
-│   │   └── ICCTPTokenMessenger.sol  # Interface for Circle's TokenMessenger
-│   │   └── IUSDC.sol                # Interface for USDC token
-│   ├── mocks/                 # Mock contracts for testing
-├── scripts/
-│   ├── deploy.js              # Deployment script
-│   └── bridge-usdc.js         # Script to test USDC bridging
-├── test/
-│   └── CCTPBridge.test.js     # Test cases
-├── .env.example               # Template for environment variables
-├── hardhat.config.js          # Hardhat configuration
-├── Makefile                   # Simplified commands for project operations
-├── package.json               # Dependencies and scripts
-└── README.md                  # Project documentation
-```
 
 ## Usage
 
 ### Using the Makefile
 
-This project includes a Makefile that simplifies common operations. Instead of using raw npm or npx commands, you can use these make commands:
+This project includes a Makefile that simplifies common operations:
 
 ```bash
 # Show all available commands
@@ -103,37 +65,6 @@ make bridge-goerli
 ```
 
 For deployment and bridging commands, make sure your `.env` file has the necessary environment variables set.
-
-### Deploying the Bridge Contract
-
-```bash
-# Deploy to Goerli testnet
-npx hardhat run scripts/deploy.js --network goerli
-
-# Deploy to Arbitrum testnet
-npx hardhat run scripts/deploy.js --network arbitrum
-```
-
-### Bridging USDC
-
-After deploying the contract, update your `.env` file with the deployed contract address, then run:
-
-```bash
-# Set environment variables for the bridging operation
-export BRIDGE_ADDRESS=0x...your_deployed_contract_address
-export USDC_ADDRESS=0x...usdc_address_on_source_chain
-export DESTINATION_DOMAIN=3  # For Arbitrum
-export DESTINATION_ADDRESS=0x...recipient_address  # Optional
-
-# Execute the bridging
-npx hardhat run scripts/bridge-usdc.js --network goerli
-```
-
-### Running Tests
-
-```bash
-npx hardhat test
-```
 
 ## Domain IDs
 

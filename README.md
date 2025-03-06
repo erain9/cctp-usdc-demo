@@ -8,6 +8,15 @@ Circle's Cross-Chain Transfer Protocol (CCTP) is a permissionless on-chain utili
 
 This demo includes smart contracts, deployment scripts, and tests for interacting with CCTP to transfer USDC between supported chains including Ethereum, Arbitrum, Avalanche, Optimism, and Base.
 
+## Documentation
+
+For detailed documentation, please check the [docs folder](./docs):
+
+- [Documentation Index](./docs/index.md)
+- [Quick Start Guide](./docs/quick-start-guide.md)
+- [Project Documentation](./docs/project-documentation.md)
+- [Security Considerations](./docs/security-considerations.md)
+
 ## Prerequisites
 
 - Node.js (v18+)

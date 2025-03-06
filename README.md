@@ -74,8 +74,8 @@ Circle uses specific domain IDs to identify chains in CCTP:
 - Avalanche: 1
 - Optimism: 2
 - Arbitrum: 3
-- Base: 6
 - Solana: 5
+- Base: 6
 
 ## Important Contract Addresses
 

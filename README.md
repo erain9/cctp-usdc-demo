@@ -68,11 +68,41 @@ cctp-usdc-demo/
 │   └── CCTPBridge.test.js     # Test cases
 ├── .env.example               # Template for environment variables
 ├── hardhat.config.js          # Hardhat configuration
+├── Makefile                   # Simplified commands for project operations
 ├── package.json               # Dependencies and scripts
 └── README.md                  # Project documentation
 ```
 
 ## Usage
+
+### Using the Makefile
+
+This project includes a Makefile that simplifies common operations. Instead of using raw npm or npx commands, you can use these make commands:
+
+```bash
+# Show all available commands
+make help
+
+# Compile the smart contracts
+make compile
+
+# Run all tests
+make test
+
+# Clean build artifacts
+make clean
+
+# Deploy to Goerli testnet
+make deploy-goerli
+
+# Deploy to Arbitrum testnet 
+make deploy-arbitrum
+
+# Bridge USDC from Goerli
+make bridge-goerli
+```
+
+For deployment and bridging commands, make sure your `.env` file has the necessary environment variables set.
 
 ### Deploying the Bridge Contract
 
